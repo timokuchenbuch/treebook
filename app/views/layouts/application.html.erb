@@ -13,19 +13,30 @@
 			<div class="container">
 				<a href="#" class="brand">Treebook</a>
 				<ul class="nav">
-					<li><%= link_to "Alle Statusupdates", statuses_path %></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li><%= link_to "Alle Statusupdates", feed_path %></li>
+				</ul>
+				<ul class="nav pull-right">
+					<% if user_signed_in? %>
+						<li><%= link_to current_user.full_name, edit_user_registration_path %></li>
+						<li><%= link_to "LogOut", logout_path %></li>
+					<% else %>
+						<li><%= link_to "Registrieren", register_path %></li>
+						<li><%= link_to "LogIn", login_path %></li>
+					<% end %>
+
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
-		<p class="notice"><%= notice %></p>
-    	<p class="alert"><%= alert %></p>
+		<% flash.each do |type, message| %>
+			<div class="alert<%= flash_class type %>">
+				<button class="close" data-dismiss="alert">x</button>
+				<%= message %>
+			</div>
+		<% end %>
+
 		<%= yield %>
 	</div>
 
